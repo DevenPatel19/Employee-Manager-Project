@@ -1,14 +1,19 @@
 package com.codingdojo.springepm.models;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
@@ -36,7 +41,7 @@ public class Project {
 	
 	@NotEmpty(message="Project details are required!")
     @Size(min=3, max=3000, message="Project details must be between 3 and 3000 characters")
-    private String projectdetals;
+    private String projectdetails;
 	
 	@Column(updatable=false)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -54,13 +59,17 @@ public class Project {
 		this.updatedAt = new Date();
 	}
 	
-	
+	@ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "employees_projects", 
+        joinColumns = @JoinColumn(name = "project_id"), 
+        inverseJoinColumns = @JoinColumn(name = "employee_id")
+    )
+	private List<Employee> employee;
 	
 	
 	//constructor
 	public Project() {}
-	
-	
 	public Long getId() {
 		return id;
 	}
@@ -85,11 +94,11 @@ public class Project {
 	public void setCurrentStatus(String currentStatus) {
 		this.currentStatus = currentStatus;
 	}
-	public String getProjectdetals() {
-		return projectdetals;
+	public String getProjectdetails() {
+		return projectdetails;
 	}
-	public void setProjectdetals(String projectdetals) {
-		this.projectdetals = projectdetals;
+	public void setProjectdetails(String projectdetails) {
+		this.projectdetails = projectdetails;
 	}
 	public Date getCreatedAt() {
 		return createdAt;
@@ -103,6 +112,8 @@ public class Project {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+	
+	
 	
 	
 	
