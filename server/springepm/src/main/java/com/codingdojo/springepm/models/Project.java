@@ -2,6 +2,7 @@ package com.codingdojo.springepm.models;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -23,6 +24,7 @@ import jakarta.validation.constraints.Size;
 @Entity
 @Table(name="Project")
 public class Project {
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -111,6 +113,12 @@ public class Project {
 	}
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+	public List<Employee> getEmployee() {
+		return employee;
+	}
+	public void setEmployee(List<Employee> employee) {
+		this.employee = employee;
 	}
 	
 	

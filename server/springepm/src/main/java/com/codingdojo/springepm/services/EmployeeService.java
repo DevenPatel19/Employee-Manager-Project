@@ -5,9 +5,9 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.codingdojo.springepm.models.Employee;
 import com.codingdojo.springepm.models.Project;
+import com.codingdojo.springepm.models.Employee;
+import com.codingdojo.springepm.repositories.ProjectRepository;
 import com.codingdojo.springepm.repositories.EmployeeRepository;
 
 @Service
@@ -15,6 +15,9 @@ public class EmployeeService {
 
 	@Autowired
 	private EmployeeRepository empRepo;
+	
+	@Autowired
+	private ProjectRepository projectRepo;
 	
 	
 	//find all
@@ -42,4 +45,6 @@ public class EmployeeService {
 		public void deleteEmployee(Long id) {
 			empRepo.deleteById(id);
 		}			
+		
+	
 }

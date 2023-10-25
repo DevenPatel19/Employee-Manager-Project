@@ -2,6 +2,7 @@ package com.codingdojo.springepm.models;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -65,6 +66,7 @@ public class Employee {
     )
 	private List<Project> project;
 	
+
 	
 	// constructor
 	public Employee() {}
@@ -105,6 +107,13 @@ public class Employee {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+	public List<Project> getProject() {
+		return project;
+	}
+	public void setProject(List<Project> project) {
+		this.project = project;
+	}
+	
 
 	
 	
@@ -112,3 +121,4 @@ public class Employee {
 	
 	
 }
+

@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import com.codingdojo.springepm.models.Employee;
 import com.codingdojo.springepm.models.Project;
@@ -22,7 +24,7 @@ public class HomeController {
 	@Autowired
 	private ProjectService proService;
 	
-	
+	// main dashboard
 	@GetMapping("/dashboard")
 	public String renderDashboard(Model model) {
 		List<Employee> allEmployee = empService.allEmployee();
@@ -31,7 +33,7 @@ public class HomeController {
 		model.addAttribute("allProject", allProject);
 		return "dashboard.jsp";
 	}
-	
+	//single employee detail
 	@GetMapping("/employee/{id}")
 	public String renderEmployeeDetails(
 			@PathVariable("id")Long id, Model model) {
@@ -41,4 +43,31 @@ public class HomeController {
 		model.addAttribute("allProject", allProject);
 		return "employeeDetails.jsp";
 	}
+	
+	//single employee new add form
+	@GetMapping("/employee/new")
+	public String renderNewEmployeeForm(@ModelAttribute("newEmp")Employee newEmp
+			) {
+		return "employeeAdd.jsp";
+	}
+	
+	
+	//single employee edit details form
+	 @GetMapping("/employee/{id}/edit")
+	    public String showUpdateEmployeeForm(@PathVariable Long id, Model model) {
+		 	Employee oneEmp = empService.oneEmp(id);
+		 	List<Project> allProjects = proService.allProject();
+	        model.addAttribute("oneEmp", oneEmp);
+	        model.addAttribute("allProjects", allProjects);
+	        return "employeeEdit.jsp";
+	    }
+	 
+	 //single employee edit detail processing
+	 @PutMapping("/employee/{id}/edit")
+	    public String processUpdateEmployee(@ModelAttribute("employee") Employee updatedEmployee) {
+	        empService.updateEmployee(updatedEmployee);
+	        return "redirect:/employee/{id}"; // Redirect to the employee details page
+	    }
+	
+	
 }

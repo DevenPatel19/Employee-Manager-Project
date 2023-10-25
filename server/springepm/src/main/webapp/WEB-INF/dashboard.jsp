@@ -67,7 +67,7 @@
 		    </c:forEach>
 		  </tbody>
 		</table>
-		   <a href="/project/new" class="btn btn-primary">New Employee</a>
+		   <a href="/project/new" class="btn btn-primary">New Project</a>
 		</div>
 	</div>
 </body>

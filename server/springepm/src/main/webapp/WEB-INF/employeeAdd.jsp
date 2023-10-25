@@ -11,10 +11,10 @@
 <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
 <!-- YOUR own local CSS -->
 <link rel="stylesheet" href="/css/main.css"/>
-<title>Insert title here</title>
+<title>Add New Employee</title>
 </head>
 <body>
-
+	<h1> Sanity</h1>
 </body>
 <!-- For any Bootstrap that uses JS -->
 <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
