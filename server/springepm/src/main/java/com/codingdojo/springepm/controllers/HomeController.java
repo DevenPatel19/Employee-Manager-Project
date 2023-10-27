@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
 import com.codingdojo.springepm.models.Employee;
@@ -51,6 +52,11 @@ public class HomeController {
 		return "employeeAdd.jsp";
 	}
 	
+	@PostMapping("/employee/new")
+	public String processNewEmployee(@ModelAttribute("newEmp") Employee newEmployee) {
+	    empService.createEmployee(newEmployee); 
+	    return "redirect:/dashboard"; 
+	}
 	
 	//single employee edit details form
 	 @GetMapping("/employee/{id}/edit")
@@ -69,5 +75,14 @@ public class HomeController {
 	        return "redirect:/employee/{id}"; // Redirect to the employee details page
 	    }
 	
-	
+	//single project detail
+		@GetMapping("/project/{id}")
+		public String renderProjectDetails(
+				@PathVariable("id")Long id, Model model) {
+			Project onePro = proService.onePro(id);
+			model.addAttribute("onePro", onePro);
+			List<Project> allProject = proService.allProject();
+			model.addAttribute("allProject", allProject);
+			return "projectDetails.jsp";
+		}
 }

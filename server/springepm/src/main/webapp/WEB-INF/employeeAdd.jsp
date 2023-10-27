@@ -6,16 +6,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<!-- for Bootstrap CSS -->
-<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
-<!-- YOUR own local CSS -->
-<link rel="stylesheet" href="/css/main.css"/>
-<title>Add New Employee</title>
+    <meta charset="UTF-8">
+    <!-- Include Bootstrap CSS using a CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <title>Add New Employee</title>
 </head>
 <body>
-	<h1> Sanity</h1>
+    <div class="container">
+        <h2>New Employee Form</h2>
+        <form:form action="/employee/new" method="POST" modelAttribute="newEmp" class="form-control mt-4">
+            <div class="form-group">
+                <form:label path="firstName"> First Name: </form:label>
+                <form:input path="firstName" type="text" class="form-control" />
+                <form:errors path="firstName" class="text-danger" />
+            </div>
+            <div class="form-group">
+                <form:label path="lastName"> Last Name: </form:label>
+                <form:input path="lastName" type="text" class="form-control" />
+                <form:errors path="lastName" class="text-danger" />
+            </div>
+            <div class="form-group">
+                <form:label path="email"> Email: </form:label>
+                <form:input path="email" class="form-control" />
+                <form:errors path="email" class="text-danger" />
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Submit</button>
+        </form:form>
+    </div>
+    <!-- Include Bootstrap JavaScript using a CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-<!-- For any Bootstrap that uses JS -->
-<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </html>

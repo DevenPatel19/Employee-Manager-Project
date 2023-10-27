@@ -44,8 +44,8 @@
 		</div>
 		<div class="container mt-5">
 		<h1>Current Projects</h1>
-		<table class="table table-dark table-striped">
-		  <thead class="table-light">
+		<table class="table table-striped">
+		  <thead class="table-dark">
 		    <tr>
 		      <th scope="col">ID</th>
 		      <th scope="col">Project Name</th>

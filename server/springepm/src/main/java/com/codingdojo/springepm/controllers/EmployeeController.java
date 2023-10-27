@@ -1,16 +1,18 @@
 package com.codingdojo.springepm.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.codingdojo.springepm.models.Employee;
@@ -38,8 +40,8 @@ public class EmployeeController {
 	//read one route
 	@GetMapping("/employee/{id}")
 	public Employee getOneEmployee(
-			@PathVariable("id") Long id) {
-		return empService.oneEmp(id);
+			@PathVariable("id") Long employeeId) {
+		return empService.oneEmp(employeeId);
 	}
 	
 	//update one route
@@ -55,5 +57,6 @@ public class EmployeeController {
 	public void deleteEmployeeById(@PathVariable("id")Long id) {
 		empService.deleteEmployee(id);
 	}
+	
 	
 }
