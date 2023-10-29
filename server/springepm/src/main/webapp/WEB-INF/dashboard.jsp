@@ -35,7 +35,10 @@
 		        <td><a href="/employee/${eachEmployee.id}">${eachEmployee.lastName}</a></td>
                 <td><a href="mailto:${eachEmployee.email}">${eachEmployee.email}</a></td>
                 <td><a href="/employee/${eachEmployee.id}/edit" class="btn btn-warning">Edit</a>    
-                	<a href="/employee/${eachEmployee.id}/delete" class="btn btn-danger">Delete</a></td>
+        <form action="/employee/${eachEmployee.id}" method="post">
+			<input type="hidden" name="_method" value="delete" />
+			<button style="display:inline;" type="submit" class="btn btn-danger">Delete</button>
+		</form>
 		    </tr>
 		    </c:forEach>
 		  </tbody>
@@ -58,11 +61,14 @@
 		 <c:forEach items="${allProject}" var="eachProject">
 		    <tr>
 		        <td class="fw-bold">${eachProject.id}</td>
-                <td class="fw-bold"><a href="/project/{id}">${eachProject.projectName}</a></td>
-		        <td class="fw-bold"><a href="/project/{id}">${eachProject.projectLead}</a></td>
+                <td class="fw-bold"><a href="/project/${eachProject.id}">${eachProject.projectName}</a></td>
+		        <td class="fw-bold"><a href="/project/${eachProject.id}">${eachProject.projectLead}</a></td>
                 <td class="fw-bold">${eachProject.currentStatus}</td>
-                <td><a href="/employee/edit" class="btn btn-warning">Edit</a>    
-                	<a href="/employee/delete" class="btn btn-danger">Delete</a></td>
+                <td><a href="/project/${eachProject.id}/edit" class="btn btn-warning">Edit</a>    
+                <form action="/project/${oneProject.id}" method="post">
+					<input type="hidden" name="_method" value="delete" />
+					<button style="display:inline;" type="submit" class="btn btn-danger">Delete</button>
+				</form></td>
 		    </tr>
 		    </c:forEach>
 		  </tbody>

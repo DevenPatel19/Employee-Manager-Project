@@ -2,7 +2,6 @@ package com.codingdojo.springepm.models;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -41,7 +40,7 @@ public class Project {
 	@NotEmpty
 	private String currentStatus;
 	
-	@NotEmpty(message="Project details are required!")
+	
     @Size(min=3, max=3000, message="Project details must be between 3 and 3000 characters")
     private String projectdetails;
 	

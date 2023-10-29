@@ -32,6 +32,7 @@
             </div>
             <button type="submit" class="btn btn-primary mt-3">Submit</button>
         </form:form>
+        	<a href="/dashboard" class="btn btn-warning mt-3">Dashboard</a>
     </div>
     <!-- Include Bootstrap JavaScript using a CDN -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
