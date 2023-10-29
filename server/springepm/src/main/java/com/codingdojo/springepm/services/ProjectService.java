@@ -44,20 +44,19 @@ public class ProjectService {
 	public void deleteProject(Long id) {
 		projectRepo.deleteById(id);
 	}
-	public void associateProjectWithEmployee(Long projectId, Long employeeId) {
-		// Retrieve the project and employee from their respective repositories
-		Optional<Project> optionalProject = projectRepo.findById(projectId);
-		Optional<Employee> optionalEmployee = employeeRepo.findById(employeeId);
-		
-		if (optionalProject.isPresent() && optionalEmployee.isPresent()) {
-			Project thisProject = optionalProject.get();
-			Employee thisEmployee = optionalEmployee.get();
-			
-			// Add the project to the employee's list of projects
-			thisEmployee.getProject().add(thisProject);
-			
-			// Save the employee since changes were made to their project list
-			employeeRepo.save(thisEmployee);
-		}
-	}
+	//enroll Project into project
+	 public void assignEmployeeToProject(Employee employee, Project project) {
+	        employee.getProject().add(project);
+	        project.getEmployee().add(employee);
+	        employeeRepo.save(employee);
+	        projectRepo.save(project);
+	    }
+
+	    public void unassignEmployeeFromProject(Employee employee, Project project) {
+	        employee.getProject().remove(project);
+	        project.getEmployee().remove(employee);
+	        employeeRepo.save(employee);
+	        projectRepo.save(project);
+	    }
+	
 }

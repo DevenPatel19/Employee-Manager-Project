@@ -64,7 +64,7 @@ public class Employee {
         joinColumns = @JoinColumn(name = "employee_id"), 
         inverseJoinColumns = @JoinColumn(name = "project_id")
     )
-	private Set<Project> project;
+	private List<Project> project;
 	
 
 	
@@ -107,10 +107,10 @@ public class Employee {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	public Set<Project> getProject() {
+	public List<Project> getProject() {
 		return project;
 	}
-	public void setProject(Set<Project> project) {
+	public void setProject(List<Project> project) {
 		this.project = project;
 	}
 	

@@ -80,9 +80,23 @@ public class HomeController {
 		public String renderProjectDetails(
 				@PathVariable("id")Long id, Model model) {
 			Project onePro = proService.onePro(id);
-			model.addAttribute("onePro", onePro);
-			List<Project> allProject = proService.allProject();
-			model.addAttribute("allProject", allProject);
+			
 			return "projectDetails.jsp";
 		}
+	// Enroll an Employee in a Project
+	    @PostMapping("/employee/{employeeId}/enroll/{projectId}")
+	    public String enrollEmployeeInProject(
+	            @PathVariable Long employeeId,
+	            @PathVariable Long projectId) {
+
+	        Employee employee = empService.enrollEmployeeInProject(employeeId, projectId);
+
+	        if (employee != null) {
+	            return "redirect:/employee/" + employeeId; // Redirect to the employee details page
+	        } else {
+	            // Handle the case where either the employee or project is not found
+	            // You can return an error page or redirect to an appropriate error route
+	            return "errorPage.jsp";
+	        }
+	    }	
 }

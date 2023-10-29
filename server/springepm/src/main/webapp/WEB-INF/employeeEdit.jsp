@@ -33,27 +33,28 @@
 	        	<form:input path="email" id="email" />
 			</div>
 			
-	        <h2>Projects:</h2>
-	        <c:forEach var="project" items="${allProjects}">
-	            <div class="form-check">
-	                <input type="checkbox" class="form-check-input" id="project-${project.id}" name="projectIds" value="${project.id}"
-	                <c:choose>
-	                    <c:when test="${employee.projectIds.contains(project.id)}">
-	                        checked
-	                    </c:when>
-	                </c:choose>
-	                />
-	                <label class="form-check-label" for="project-${project.id}">
-	                    ${project.projectName}
-	                </label>
-	            </div>
-	        </c:forEach>
+	         <h2>Projects:</h2>
+            <c:forEach var="project" items="${allProjects}">
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="project-${project.id}" name="projectIds" value="${project.id}"
+                        <c:choose>
+                            <c:when test="${employee.projectIds.contains(project.id)}">
+                                checked
+                            </c:when>
+                        </c:choose>
+                    />
+                    <label class="form-check-label" for="project-${project.id}">
+                        ${project.projectName}
+                    </label>
+                </div>
+            </c:forEach>
+
+            <!-- Add other fields as needed -->
+
+            <input type="submit" value="Update">
+        </form:form>
+    </div>
 	
-	        <!-- Add other fields as needed -->
-	
-	        <input type="submit" value="Update">
-	    </form:form>
-	</div>
 
     <!-- For Bootstrap JS -->
     <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
