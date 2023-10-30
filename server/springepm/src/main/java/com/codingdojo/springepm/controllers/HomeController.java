@@ -58,44 +58,50 @@ public class HomeController {
     @GetMapping("/employee/{id}/edit")
     public String showUpdateEmployeeForm(@PathVariable Long id, Model model) {
         Employee oneEmp = empService.oneEmp(id);
-        List<Project> allProjects = proService.allProject();
         model.addAttribute("oneEmp", oneEmp);
-        model.addAttribute("allProjects", allProjects);
         return "employeeEdit.jsp";
     }
 
     
     // single employee edit detail processing
     @PutMapping("/employee/{id}/edit")
-    public String processUpdateEmployee(@ModelAttribute("employee") Employee updatedEmployee) {
-        empService.updateEmployee(updatedEmployee);
-        return "redirect:/employee/{id}"; // Redirect to the employee details page
+    public String processUpdateEmployee(@ModelAttribute("oneEmp") Employee oneEmp) {
+    	
+        empService.updateEmployee(oneEmp);
+        return "redirect:/employee/" + oneEmp.getId(); // Redirect to the employee details page
+    }
+    
+    // single employee delete
+    @DeleteMapping("/employee/{id}")
+    public String deleteEmployee(@PathVariable("id") Long id) {
+    	empService.deleteEmployee(id);
+    	return "redirect:/dashboard";
     }
 
-    @PostMapping("/{employeeId}/assign/{projectId}")
-    public String assignEmployeeToProject(@PathVariable Long employeeId, @PathVariable Long projectId) {
-        Employee employee = empService.oneEmp(employeeId);
-        Project project = proService.onePro(projectId);
+//    @PostMapping("/{employeeId}/assign/{projectId}")
+//    public String assignEmployeeToProject(@PathVariable Long employeeId, @PathVariable Long projectId) {
+//        Employee employee = empService.oneEmp(employeeId);
+//        Project project = proService.onePro(projectId);
+//
+//        if (employee != null && project != null) {
+//            empService.assignEmployeeToProject(employee, project);
+//        }
+//
+//        return "redirect:/employee/" + employeeId;
+//    }
 
-        if (employee != null && project != null) {
-            empService.assignEmployeeToProject(employee, project);
-        }
-
-        return "redirect:/employee/" + employeeId;
-    }
-
-    // Endpoint to unassign an employee from a project
-    @PostMapping("/{employeeId}/unassign/{projectId}")
-    public String unassignEmployeeFromProject(@PathVariable Long employeeId, @PathVariable Long projectId) {
-        Employee employee = empService.oneEmp(employeeId);
-        Project project = proService.onePro(projectId);
-
-        if (employee != null && project != null) {
-            empService.unassignEmployeeFromProject(employee, project);
-        }
-
-        return "redirect:/employee/" + employeeId;
-    }
+//    // Endpoint to unassign an employee from a project
+//    @PostMapping("/{employeeId}/unassign/{projectId}")
+//    public String unassignEmployeeFromProject(@PathVariable Long employeeId, @PathVariable Long projectId) {
+//        Employee employee = empService.oneEmp(employeeId);
+//        Project project = proService.onePro(projectId);
+//
+//        if (employee != null && project != null) {
+//            empService.unassignEmployeeFromProject(employee, project);
+//        }
+//
+//        return "redirect:/employee/" + employeeId;
+//    }
 
     // single project new add form
     @GetMapping("/project/new")
@@ -103,7 +109,7 @@ public class HomeController {
         return "projectAdd.jsp";
     }
 
-    @PostMapping("/project/new")
+    @PutMapping("/project/new")
     public String processNewProject(@ModelAttribute("newPro") Project newPro) {
         proService.createProject(newPro);
         return "redirect:/dashboard";
@@ -122,18 +128,22 @@ public class HomeController {
     
     // single Project edit details form
     @GetMapping("/project/{id}/edit")
-    public String showUpdatePorjectForm(@PathVariable Long id, Model model) {
+    public String showUpdateProjectForm(@PathVariable Long id, Model model) {
         Project onePro = proService.onePro(id);
-        List<Employee> allEmployee = empService.allEmployee();
         model.addAttribute("onePro", onePro);
-        model.addAttribute("allEmployee", allEmployee);
         return "projectEdit.jsp";
     }
 
     // single employee edit detail processing
     @PutMapping("/project/{id}/edit")
-    public String processUpdateProject(@ModelAttribute("project") Project updatedProject) {
-        proService.updateProject(updatedProject);
+    public String processUpdateProject(@ModelAttribute("onePro") Project onePro) {
+        proService.updateProject(onePro);
         return "redirect:/project/{id}"; // Redirect to the employee details page
+    }
+    
+    @DeleteMapping("/project/{id}")
+    public String deleteProject(@PathVariable("id") Long id) {
+    	proService.deleteProject(id);
+    	return "redirect:/dashboard";
     }
 }

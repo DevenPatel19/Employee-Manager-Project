@@ -14,7 +14,7 @@
 <body>
     <div class="container">
         <h2>Edit Project Form</h2>
-        <form:form action="/project/{id}/edit" method="POST" modelAttribute="onePro" class="form-control mt-4">
+        <form:form modelAttribute="onePro" action="/project/${onePro.id}/edit" method="PUT">
             <div class="form-group">
                 <form:label path="projectName"> Project Name: </form:label>
                 <form:input path="projectName" type="text" class="form-control" />

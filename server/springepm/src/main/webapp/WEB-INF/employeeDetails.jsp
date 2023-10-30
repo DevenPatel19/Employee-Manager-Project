@@ -22,7 +22,9 @@
 		<h3>Employee ID#: <c:out value="${oneEmp.id}"></c:out></h3>
 	
 	<a href="/employee/${oneEmp.id}/assign" class="btn btn-success">Add to a Project</a>
+	<a href="/dashboard" class="btn btn-warning">Dashboard</a>
 	</div>
+	
 </body>
 <!-- For any Bootstrap that uses JS -->
 <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>

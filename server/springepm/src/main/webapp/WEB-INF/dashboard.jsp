@@ -65,7 +65,7 @@
 		        <td class="fw-bold"><a href="/project/${eachProject.id}">${eachProject.projectLead}</a></td>
                 <td class="fw-bold">${eachProject.currentStatus}</td>
                 <td><a href="/project/${eachProject.id}/edit" class="btn btn-warning">Edit</a>    
-                <form action="/project/${oneProject.id}" method="post">
+                <form action="/project/${eachProject.id}" method="post">
 					<input type="hidden" name="_method" value="delete" />
 					<button style="display:inline;" type="submit" class="btn btn-danger">Delete</button>
 				</form></td>
