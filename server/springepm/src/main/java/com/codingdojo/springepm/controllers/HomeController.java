@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import com.codingdojo.springepm.models.AssignmentForm;
 import com.codingdojo.springepm.models.Employee;
 import com.codingdojo.springepm.models.Project;
 import com.codingdojo.springepm.services.EmployeeService;
@@ -78,31 +79,44 @@ public class HomeController {
     	return "redirect:/dashboard";
     }
 
-//    @PostMapping("/{employeeId}/assign/{projectId}")
-//    public String assignEmployeeToProject(@PathVariable Long employeeId, @PathVariable Long projectId) {
-//        Employee employee = empService.oneEmp(employeeId);
-//        Project project = proService.onePro(projectId);
-//
-//        if (employee != null && project != null) {
-//            empService.assignEmployeeToProject(employee, project);
-//        }
-//
-//        return "redirect:/employee/" + employeeId;
-//    }
+    @GetMapping("/employee/{id}/assign")
+    public String renderAssignForm(@PathVariable Long id, Model model) {
+        Employee employee = empService.oneEmp(id);
+        List<Project> allProjects = proService.allProject();
 
-//    // Endpoint to unassign an employee from a project
-//    @PostMapping("/{employeeId}/unassign/{projectId}")
-//    public String unassignEmployeeFromProject(@PathVariable Long employeeId, @PathVariable Long projectId) {
-//        Employee employee = empService.oneEmp(employeeId);
-//        Project project = proService.onePro(projectId);
-//
-//        if (employee != null && project != null) {
-//            empService.unassignEmployeeFromProject(employee, project);
-//        }
-//
-//        return "redirect:/employee/" + employeeId;
-//    }
+      
 
+        model.addAttribute("employee", employee);
+        model.addAttribute("allProjects", allProjects);
+
+        // Create a form object to hold the selected project ID
+        AssignmentForm assignForm = new AssignmentForm();
+        model.addAttribute("assignForm", assignForm);
+
+        return "assignproject.jsp"; // Return the name of your JSP page
+    }
+    
+    //process assign employee
+    @PostMapping("/employee/{employeeId}/assign")
+    public String processAssignmentForm(
+    		@PathVariable  Long employeeId, @RequestParam Long projectId) {
+        Employee employee = empService.oneEmp(employeeId);
+        Project project = proService.onePro(projectId);
+        
+        employee.getProject().add(project);    // Add the project to the employee's list
+//        project.getEmployee().add(employee);   // Add the employee to the project's list
+        
+        empService.createEmployee(employee);
+        proService.createProject(project);
+        
+        // Performs the assignment using the service layer
+        empService.assignEmployeeToProject(employee, project);
+
+        return "redirect:/dashboard"; // Redirect to the dashboard or another appropriate page
+    }
+
+
+    
     // single project new add form
     @GetMapping("/project/new")
     public String renderNewProjectForm(@ModelAttribute("newPro") Project newPro) {

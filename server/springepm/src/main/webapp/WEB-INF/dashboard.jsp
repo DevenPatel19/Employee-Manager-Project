@@ -37,7 +37,7 @@
                 <td><a href="/employee/${eachEmployee.id}/edit" class="btn btn-warning">Edit</a>    
         <form action="/employee/${eachEmployee.id}" method="post">
 			<input type="hidden" name="_method" value="delete" />
-			<button style="display:inline;" type="submit" class="btn btn-danger">Delete</button>
+			<button style="display:inline;" type="submit" class="btn btn-danger mt-3">Delete</button>
 		</form>
 		    </tr>
 		    </c:forEach>
@@ -67,7 +67,7 @@
                 <td><a href="/project/${eachProject.id}/edit" class="btn btn-warning">Edit</a>    
                 <form action="/project/${eachProject.id}" method="post">
 					<input type="hidden" name="_method" value="delete" />
-					<button style="display:inline;" type="submit" class="btn btn-danger">Delete</button>
+					<button style="display:inline;" type="submit" class="btn btn-danger mt-3 d-inline">Delete</button>
 				</form></td>
 		    </tr>
 		    </c:forEach>
