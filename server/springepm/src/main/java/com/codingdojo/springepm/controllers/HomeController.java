@@ -83,9 +83,9 @@ public class HomeController {
     public String renderAssignForm(@PathVariable Long id, Model model) {
         Employee employee = empService.oneEmp(id);
         List<Project> allProjects = proService.allProject();
-
-      
-
+//
+//      
+//
         model.addAttribute("employee", employee);
         model.addAttribute("allProjects", allProjects);
 
@@ -99,21 +99,27 @@ public class HomeController {
     //process assign employee
     @PostMapping("/employee/{employeeId}/assign")
     public String processAssignmentForm(
-    		@PathVariable  Long employeeId, @RequestParam Long projectId) {
+            @PathVariable Long employeeId, @RequestParam Long projectId) {
         Employee employee = empService.oneEmp(employeeId);
         Project project = proService.onePro(projectId);
-        
-        employee.getProject().add(project);    // Add the project to the employee's list
-//        project.getEmployee().add(employee);   // Add the employee to the project's list
-        
-        empService.createEmployee(employee);
-        proService.createProject(project);
-        
-        // Performs the assignment using the service layer
+
+        // Ensure the project is not already assigned to the employee
+        if (!employee.getProject().contains(project)) {
+            employee.getProject().add(project);
+            empService.createEmployee(employee);
+        }
+
+        // Alternatively, you can handle the project's employee list if needed
+        // if (!project.getEmployees().contains(employee)) {
+        //     project.getEmployees().add(employee);
+        //     proService.createProject(project);
+        // }
+
         empService.assignEmployeeToProject(employee, project);
 
-        return "redirect:/dashboard"; // Redirect to the dashboard or another appropriate page
+        return "redirect:/dashboard";
     }
+
 
 
     

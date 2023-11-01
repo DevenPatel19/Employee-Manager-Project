@@ -44,19 +44,25 @@ public class ProjectService {
 	public void deleteProject(Long id) {
 		projectRepo.deleteById(id);
 	}
-	//enroll Project into project
-	 public void assignEmployeeToProject(Employee employee, Project project) {
+	//enroll Employee into project
+	public void assignEmployeeToProject(Employee employee, Project project) {
+	    if (!employee.getProject().contains(project)) {
 	        employee.getProject().add(project);
 	        project.getEmployee().add(employee);
 	        employeeRepo.save(employee);
 	        projectRepo.save(project);
 	    }
+	}
 
-	    public void unassignEmployeeFromProject(Employee employee, Project project) {
+	//unenroll Employee out of project
+	public void unassignEmployeeFromProject(Employee employee, Project project) {
+	    if (employee.getProject().contains(project)) {
 	        employee.getProject().remove(project);
 	        project.getEmployee().remove(employee);
 	        employeeRepo.save(employee);
 	        projectRepo.save(project);
 	    }
+	}
+
 	
 }

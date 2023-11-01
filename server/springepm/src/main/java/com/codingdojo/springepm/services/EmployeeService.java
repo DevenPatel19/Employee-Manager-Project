@@ -47,18 +47,24 @@ public class EmployeeService {
 			empRepo.deleteById(id);
 		}			
 		//enroll Employee into project
-	    public void assignEmployeeToProject(Employee employee, Project project) {
-	        employee.getProject().add(project);
-	        project.getEmployee().add(employee);
-	        empRepo.save(employee);
-	        projectRepo.save(project);
-	    }
-	    //unenroll Employee out of project
-	    public void unassignEmployeeFromProject(Employee employee, Project project) {
-	        employee.getProject().remove(project);
-	        project.getEmployee().remove(employee);
-	        empRepo.save(employee);
-	        projectRepo.save(project);
-	    }
+		public void assignEmployeeToProject(Employee employee, Project project) {
+		    if (!employee.getProject().contains(project)) {
+		        employee.getProject().add(project);
+		        project.getEmployee().add(employee);
+		        empRepo.save(employee);
+		        projectRepo.save(project);
+		    }
+		}
+
+		//unenroll Employee out of project
+		public void unassignEmployeeFromProject(Employee employee, Project project) {
+		    if (employee.getProject().contains(project)) {
+		        employee.getProject().remove(project);
+		        project.getEmployee().remove(employee);
+		        empRepo.save(employee);
+		        projectRepo.save(project);
+		    }
+		}
+
 		
 }
