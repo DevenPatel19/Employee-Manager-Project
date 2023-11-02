@@ -19,14 +19,14 @@
             <form:hidden path="employeeId" value="${id}" />
             <div class="form-group">
                <h1>Employee Details </h1>
-		<h3>First Name: <c:out value="${employee.firstName}"></c:out></h3>
-		<h3>Last Name: <c:out value="${employee.lastName}"></c:out></h3>
-		<h3>Email: <a href="mailto:${employee.email}">${employee.email}</a></h3>
-		<h3>Employee ID#: <c:out value="${employee.id}"></c:out></h3>
+				<h3>First Name: <c:out value="${employee.firstName}"></c:out></h3>
+				<h3>Last Name: <c:out value="${employee.lastName}"></c:out></h3>
+				<h3>Email: <a href="mailto:${employee.email}">${employee.email}</a></h3>
+				<h3>Employee ID#: <c:out value="${employee.id}"></c:out></h3>
             </div>
                 
             <div class="form-group">
-                <label for="projectId">Select Project:</label>
+                <label for="projectId">Select Project to Assign:</label>
                 <select id="projectId" name="projectId" class="form-control">
                     <c:forEach items="${allProjects}" var="project">
                         <option value="${project.id}">${project.projectName}</option>

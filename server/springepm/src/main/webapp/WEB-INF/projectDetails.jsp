@@ -21,16 +21,18 @@
     <h3>Project Details: ${onePro.projectdetails}</h3>
     <h3>Project ID#: <c:out value="${onePro.id}" /></h3>
 
-    <a href="/project/${onePro.id}/assign" class="btn btn-success">Add an Employee</a>
+    <a href="/project/${onePro.id}/unassign" class="btn btn-success">Remove an Employee</a>
 
-    <!--  <h3>Assigned Employees:</h3>
+    <h3>Assigned Employees:</h3>
     <ul>
         <c:forEach items="${onePro.employee}" var="employee">
             <li>${employee.firstName} ${employee.lastName} - ${employee.email}</li>
         </c:forEach>
     </ul>
-     -->
-     <a href="/dashboard" class="btn btn-warning">Dashboard</a>
+    
+     <a href="/dashboard" class="btn btn-primary">Dashboard</a>
+     
+     
 </div>
 </body>
 <!-- For any Bootstrap that uses JS -->

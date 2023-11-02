@@ -36,7 +36,7 @@
 	        
             <input type="submit" value="Update">
         </form:form>
-        <a href="/dashboard" class="btn btn-warning mt-3">Dashboard</a>
+        <a href="/dashboard" class="btn btn-primary mt-3">Dashboard</a>
     </div>
 	
 

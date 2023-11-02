@@ -63,6 +63,11 @@ public class ProjectService {
 	        projectRepo.save(project);
 	    }
 	}
-
+	// Retrieve assigned employees for a project
+	public List<Employee> getAssignedEmployees(Project project) {
+        // Assuming you have a method in the Project entity class to get the list of assigned employees.
+        // Make sure to replace "getEmployees()" with the actual method in your Project entity.
+        return project.getEmployee();
+    }
 	
 }

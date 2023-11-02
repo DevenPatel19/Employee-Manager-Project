@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import com.codingdojo.springepm.models.AssignmentForm;
 import com.codingdojo.springepm.models.Employee;
 import com.codingdojo.springepm.models.Project;
+import com.codingdojo.springepm.services.AssignmentFormService;
 import com.codingdojo.springepm.services.EmployeeService;
 import com.codingdojo.springepm.services.ProjectService;
 
@@ -21,8 +22,11 @@ public class HomeController {
 
     @Autowired
     private ProjectService proService;
+    
+    @Autowired
+    private AssignmentFormService assignmentFormService;
 
-    // main dashboard
+    // Dain dashboard
     @GetMapping("/dashboard")
     public String renderDashboard(Model model) {
         List<Employee> allEmployee = empService.allEmployee();
@@ -32,7 +36,7 @@ public class HomeController {
         return "dashboard.jsp";
     }
 
-    // single employee detail
+    // Single employee detail
     @GetMapping("/employee/{id}")
     public String renderEmployeeDetails(
             @PathVariable("id") Long id, Model model) {
@@ -43,7 +47,7 @@ public class HomeController {
         return "employeeDetails.jsp";
     }
 
-    // single employee new add form
+    // Single employee new add form
     @GetMapping("/employee/new")
     public String renderNewEmployeeForm(@ModelAttribute("newEmp") Employee newEmp) {
         return "employeeAdd.jsp";
@@ -55,7 +59,7 @@ public class HomeController {
         return "redirect:/dashboard";
     }
 
-    // single employee edit details form
+    // Single employee edit details form
     @GetMapping("/employee/{id}/edit")
     public String showUpdateEmployeeForm(@PathVariable Long id, Model model) {
         Employee oneEmp = empService.oneEmp(id);
@@ -64,7 +68,7 @@ public class HomeController {
     }
 
     
-    // single employee edit detail processing
+    // Single employee edit detail processing
     @PutMapping("/employee/{id}/edit")
     public String processUpdateEmployee(@ModelAttribute("oneEmp") Employee oneEmp) {
     	
@@ -72,7 +76,7 @@ public class HomeController {
         return "redirect:/employee/" + oneEmp.getId(); // Redirect to the employee details page
     }
     
-    // single employee delete
+    // Single employee delete
     @DeleteMapping("/employee/{id}")
     public String deleteEmployee(@PathVariable("id") Long id) {
     	empService.deleteEmployee(id);
@@ -93,10 +97,10 @@ public class HomeController {
         AssignmentForm assignForm = new AssignmentForm();
         model.addAttribute("assignForm", assignForm);
 
-        return "assignproject.jsp"; // Return the name of your JSP page
+        return "assignproject.jsp";
     }
     
-    //process assign employee
+    // Process assign employee
     @PostMapping("/employee/{employeeId}/assign")
     public String processAssignmentForm(
             @PathVariable Long employeeId, @RequestParam Long projectId) {
@@ -109,26 +113,63 @@ public class HomeController {
             empService.createEmployee(employee);
         }
 
-        // Alternatively, you can handle the project's employee list if needed
-        // if (!project.getEmployees().contains(employee)) {
-        //     project.getEmployees().add(employee);
-        //     proService.createProject(project);
-        // }
-
         empService.assignEmployeeToProject(employee, project);
 
         return "redirect:/dashboard";
     }
+   
+    @GetMapping("/project/{id}/unassign")
+    public String getAssignedEmployees(@PathVariable String id, Model model) {
+        // Convert the id to a Long
+        Long projectId;
+        try {
+            projectId = Long.parseLong(id);
+        } catch (NumberFormatException e) {
+            // Handle the exception or return an error page
+            return "redirect:/project/{id}/unassign"; 
+        }
 
+        Project project = proService.onePro(projectId);
+        List<Employee> assignedEmployees = proService.getAssignedEmployees(project);
+
+        AssignmentForm unassignForm = new AssignmentForm();
+
+        model.addAttribute("project", project);
+        model.addAttribute("assignedEmployees", assignedEmployees);
+        model.addAttribute("unassignForm", unassignForm);
+
+        return "unassignEmployee.jsp";
+    }
 
 
     
-    // single project new add form
+//    // Process unassign employee from project
+    @PostMapping("/project/{projectId}/unassign")
+    public String unassignEmployee(
+            @PathVariable("projectId") Long projectId,
+            @RequestParam("employeeId") Long employeeId) {
+        // Retrieve the project and employee entities
+        Project project = proService.onePro(projectId);
+        Employee employee = empService.oneEmp(employeeId);
+
+        if (project != null && employee != null) {
+            // Remove the employee from the project's assignedEmployees
+            project.getEmployee().remove(employee);
+            proService.createProject(project);
+        }
+
+        // Redirect to the project details page or wherever you want
+        return "redirect:/project/" + projectId;
+    }
+
+
+    
+    // Single project new add form
     @GetMapping("/project/new")
     public String renderNewProjectForm(@ModelAttribute("newPro") Project newPro) {
         return "projectAdd.jsp";
     }
-
+    // Single project new form processing
     @PutMapping("/project/new")
     public String processNewProject(@ModelAttribute("newPro") Project newPro) {
         proService.createProject(newPro);
