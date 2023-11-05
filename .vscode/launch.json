@@ -1,0 +1,14 @@
+{
+	"configurations": [
+		{
+			"type": "java",
+			"name": "Spring Boot-SpringepmApplication<spring-epm>",
+			"request": "launch",
+			"cwd": "${workspaceFolder}",
+			"mainClass": "com.codingdojo.springepm.SpringepmApplication",
+			"projectName": "spring-epm",
+			"args": "",
+			"envFile": "${workspaceFolder}/.env"
+		}
+	]
+}

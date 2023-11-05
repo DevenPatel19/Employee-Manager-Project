@@ -38,7 +38,7 @@
         <form action="/employee/${eachEmployee.id}" method="post">
 			<input type="hidden" name="_method" value="delete" />
 			<button style="display:inline;" type="submit" class="btn btn-danger mt-3">Delete</button>
-		</form>
+		</form></td>
 		    </tr>
 		    </c:forEach>
 		  </tbody>
