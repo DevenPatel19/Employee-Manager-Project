@@ -26,7 +26,7 @@ public class HomeController {
     @Autowired
     private AssignmentFormService assignmentFormService;
 
-    // Dain dashboard
+    // Main Dashboard
     @GetMapping("/dashboard")
     public String renderDashboard(Model model) {
         List<Employee> allEmployee = empService.allEmployee();
